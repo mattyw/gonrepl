@@ -3,7 +3,7 @@ gonrepl
 
 An nrepl client written in go
 
-```
+``` bash
 $ go install github.com/mattyw/gonrepl
 $ gonrepl localhost:nreplport "(+ 1 2)"
 $ gonrepl localhost: nreplport "(map (fn [x] (* x 2) [1 2 3 4 5])"
