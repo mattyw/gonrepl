@@ -2,6 +2,7 @@ gonrepl
 =======
 
 Watch it in [action](http://youtu.be/WkVL8p5ELrQ)
+[Better quality](https://vimeo.com/77128688)
 
 An nrepl client written in go
 
