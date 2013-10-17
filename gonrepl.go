@@ -7,6 +7,12 @@ import (
 	"os"
 )
 
+type Response struct {
+	Ex     string
+	Value  string
+	Status []string
+}
+
 func main() {
 	args := os.Args
 	if len(args) != 3 {
@@ -33,21 +39,26 @@ func main() {
 		return
 	}
 
-	//We can read multiple values, but just read the first
-	result := map[string]string{}
-	//fmt.Println("UNmarhsalling")
-	err = bencode.Unmarshal(conn, &result)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	//fmt.Println(result)
-	ex, ok := result["ex"]
-	if ok {
-		fmt.Println(ex)
-	}
-	value, ok := result["value"]
-	if ok {
-		fmt.Println(value)
+	for {
+		result := Response{}
+		//fmt.Println("UNmarhsalling")
+		err = bencode.Unmarshal(conn, &result)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		//fmt.Println(result)
+		if result.Ex != "" {
+			fmt.Println(result.Ex)
+		}
+
+		if result.Value != "" {
+			fmt.Println(result.Value)
+		}
+
+		if len(result.Status) > 0 && result.Status[0] == "done" {
+			return
+		}
+
 	}
 }
