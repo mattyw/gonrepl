@@ -3,6 +3,7 @@ package main
 import (
 	bencode "code.google.com/p/bencode-go"
 	"fmt"
+	"io/ioutil"
 	"net"
 	"os"
 )
@@ -15,11 +16,30 @@ type Response struct {
 
 func main() {
 	args := os.Args
-	if len(args) != 3 {
+	if len(args) < 2 {
 		return
 	}
 	nrepl := args[1]
-	code := args[2]
+	code := ""
+
+	if len(args) == 2 {
+		//code := args[2]
+		b, err := ioutil.ReadAll(os.Stdin)
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
+		code = string(b)
+	} else if len(args) == 3 {
+		code = args[2]
+	} else {
+		fmt.Println(`
+        Usage:
+        gonrepl host:port code
+        gonrepl host:port code from stdin
+        `)
+		return
+	}
 
 	conn, err := net.Dial("tcp", nrepl)
 	if err != nil {
