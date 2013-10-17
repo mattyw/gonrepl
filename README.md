@@ -1,6 +1,8 @@
 gonrepl
 =======
 
+Watch it in [action](http://youtu.be/WkVL8p5ELrQ)
+
 An nrepl client written in go
 
 gonrepl has two modes: 
